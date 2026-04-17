@@ -1,14 +1,10 @@
 package com.weddingplanner.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import java.math.BigDecimal;
 
 @Entity
-@Data
 @Table(name = "budgets")
 public class Budget {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,9 +13,23 @@ public class Budget {
     @JoinColumn(name = "wedding_id")
     private Wedding wedding;
 
-    private String category; // venue, photography, catering, etc.
-    private BigDecimal allocatedAmount;
-    private BigDecimal spentAmount;
-    private BigDecimal remainingAmount;
+    private String category;
+    private Double allocatedAmount;
+    private Double spentAmount;
 
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Wedding getWedding() { return wedding; }
+    public void setWedding(Wedding wedding) { this.wedding = wedding; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public Double getAllocatedAmount() { return allocatedAmount; }
+    public void setAllocatedAmount(Double allocatedAmount) { this.allocatedAmount = allocatedAmount; }
+
+    public Double getSpentAmount() { return spentAmount; }
+    public void setSpentAmount(Double spentAmount) { this.spentAmount = spentAmount; }
 }

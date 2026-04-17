@@ -1,15 +1,11 @@
 package com.weddingplanner.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
-@Data
 @Table(name = "weddings")
 public class Wedding {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,12 +15,23 @@ public class Wedding {
     private LocalDate weddingDate;
     private Integer guestCount;
     private String packageType;
-    private String status; // planned, confirmed, completed
 
-    @OneToMany(mappedBy = "wedding", cascade = CascadeType.ALL)
-    private List<Budget> budgets;
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    @OneToMany(mappedBy = "wedding", cascade = CascadeType.ALL)
-    private List<Payment> payments;
+    public String getPartner1Name() { return partner1Name; }
+    public void setPartner1Name(String partner1Name) { this.partner1Name = partner1Name; }
 
+    public String getPartner2Name() { return partner2Name; }
+    public void setPartner2Name(String partner2Name) { this.partner2Name = partner2Name; }
+
+    public LocalDate getWeddingDate() { return weddingDate; }
+    public void setWeddingDate(LocalDate weddingDate) { this.weddingDate = weddingDate; }
+
+    public Integer getGuestCount() { return guestCount; }
+    public void setGuestCount(Integer guestCount) { this.guestCount = guestCount; }
+
+    public String getPackageType() { return packageType; }
+    public void setPackageType(String packageType) { this.packageType = packageType; }
 }

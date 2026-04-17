@@ -9,25 +9,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/weddings")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class WeddingController {
-
     @Autowired
     private WeddingRepository weddingRepository;
+
+    @PostMapping
+    public Wedding createWedding(@RequestBody Wedding wedding) {
+        return weddingRepository.save(wedding);
+    }
 
     @GetMapping
     public List<Wedding> getAllWeddings() {
         return weddingRepository.findAll();
-    }
-
-    @PostMapping
-    public Wedding createWedding(@RequestBody Wedding wedding) {
-        wedding.setStatus("planned");
-        return weddingRepository.save(wedding);
-    }
-
-    @GetMapping("/{id}")
-    public Wedding getWeddingById(@PathVariable Long id) {
-        return weddingRepository.findById(id).orElseThrow();
     }
 }

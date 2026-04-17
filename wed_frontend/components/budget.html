@@ -1,0 +1,44 @@
+<!-- BUDGET MANAGEMENT -->
+<section class="budget" id="budget">
+  <div class="section-header">
+    <span class="section-tag">💍 Budget Tracker</span>
+    <h2>Manage Your<br><em>Wedding Budget</em></h2>
+    <div class="divider"></div>
+    <p>Keep track of your expenses and stay within budget.</p>
+  </div>
+  <div class="budget-grid">
+    <div class="budget-card">
+      <h3>Total Budget</h3>
+      <p class="budget-amount" id="totalBudget">$0.00</p>
+    </div>
+    <div class="budget-card">
+      <h3>Total Spent</h3>
+      <p class="budget-amount" id="totalSpent">$0.00</p>
+    </div>
+    <div class="budget-card">
+      <h3>Remaining</h3>
+      <p class="budget-amount" id="remaining">$0.00</p>
+    </div>
+  </div>
+  <div class="budget-form">
+    <input type="number" id="weddingId" placeholder="Wedding ID" />
+    <input type="text" id="category" placeholder="Category (e.g., Venue)" />
+    <input type="number" id="allocated" placeholder="Allocated Amount" step="0.01" />
+    <input type="number" id="spent" placeholder="Spent Amount" step="0.01" />
+    <button onclick="addBudget()">Add Budget Item</button>
+    <button onclick="loadBudget(document.getElementById('weddingId').value)">Load Budgets</button>
+  </div>
+  <!-- Edit Budget Modal -->
+  <div id="editBudgetModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; padding:20px; border-radius:8px;">
+      <h3>Edit Budget</h3>
+      <input type="hidden" id="editBudgetId" />
+      <input type="text" id="editCategory" placeholder="Category" /><br>
+      <input type="number" id="editAllocated" placeholder="Allocated Amount" step="0.01" /><br>
+      <input type="number" id="editSpent" placeholder="Spent Amount" step="0.01" /><br>
+      <button onclick="updateBudget()">Update</button>
+      <button onclick="document.getElementById('editBudgetModal').style.display='none'">Cancel</button>
+    </div>
+  </div>
+  <div id="budgetList"></div>
+</section>

@@ -5,12 +5,10 @@ import com.weddingplanner.repository.BudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class BudgetService {
-
     @Autowired
     private BudgetRepository budgetRepository;
 
@@ -18,34 +16,17 @@ public class BudgetService {
         return budgetRepository.findByWeddingId(weddingId);
     }
 
-    public Budget createBudget(Budget budget) {
-        budget.setRemainingAmount(budget.getAllocatedAmount().subtract(budget.getSpentAmount()));
+    public Budget saveBudget(Budget budget) {
         return budgetRepository.save(budget);
     }
 
-    public Budget updateBudget(Long id, Budget budgetDetails) {
-        Budget budget = budgetRepository.findById(id).orElseThrow();
-        budget.setAllocatedAmount(budgetDetails.getAllocatedAmount());
-        budget.setSpentAmount(budgetDetails.getSpentAmount());
-        budget.setRemainingAmount(budget.getAllocatedAmount().subtract(budget.getSpentAmount()));
-        return budgetRepository.save(budget);
+    public Double getTotalBudget(Long weddingId) {
+        Double total = budgetRepository.getTotalBudget(weddingId);
+        return total != null ? total : 0.0;
     }
 
-    public void deleteBudget(Long id) {
-        budgetRepository.deleteById(id);
-    }
-
-    public BigDecimal getTotalBudget(Long weddingId) {
-        List<Budget> budgets = getBudgetsByWeddingId(weddingId);
-        return budgets.stream()
-                .map(Budget::getAllocatedAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    public BigDecimal getTotalSpent(Long weddingId) {
-        List<Budget> budgets = getBudgetsByWeddingId(weddingId);
-        return budgets.stream()
-                .map(Budget::getSpentAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    public Double getTotalSpent(Long weddingId) {
+        Double spent = budgetRepository.getTotalSpent(weddingId);
+        return spent != null ? spent : 0.0;
     }
 }
