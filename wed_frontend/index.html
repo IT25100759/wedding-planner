@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amore - Wedding Planning & Vendor Booking</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="petal-bg" id="petalBg"></div>
+
+    <!-- Include Navbar -->
+    <div id="navbar-container"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">✦ Your love story, perfectly orchestrated ✦</p>
+            <h1>Plan Your<br><em>Dream Wedding</em></h1>
+            <p class="hero-sub">A modern wedding planning system built with Java OOP elegance connecting couples with the finest vendors seamlessly.</p>
+            <div class="hero-btns">
+                <button class="btn-primary" onclick="document.getElementById('budget').scrollIntoView({behavior:'smooth'})">Manage Budget</button>
+                <button class="btn-outline" onclick="document.getElementById('payment').scrollIntoView({behavior:'smooth'})">Handle Payments</button>
+            </div>
+        </div>
+        <div class="scroll-hint"><div class="line"></div>SCROLL</div>
+    </section>
+
+    <section class="budget" id="budget">
+        <div class="section-header">
+            <span class="section-tag">✦ Budget Tracker</span>
+            <h2>Manage Your<br><em>Wedding Budget</em></h2>
+            <div class="divider"></div>
+            <p>Keep track of your expenses and stay within budget.</p>
+        </div>
+        <div class="budget-grid">
+            <div class="budget-card">
+                <h3>Total Budget</h3>
+                <p class="budget-amount" id="totalBudget">$0.00</p>
+            </div>
+            <div class="budget-card">
+                <h3>Total Spent</h3>
+                <p class="budget-amount" id="totalSpent">$0.00</p>
+            </div>
+            <div class="budget-card">
+                <h3>Remaining</h3>
+                <p class="budget-amount" id="remaining">$0.00</p>
+            </div>
+        </div>
+        <div class="budget-form">
+            <input type="number" id="weddingId" placeholder="Wedding ID" />
+            <input type="text" id="category" placeholder="Category (e.g., Venue)" />
+            <input type="number" id="allocated" placeholder="Allocated Amount" step="0.01" />
+            <input type="number" id="spent" placeholder="Spent Amount" step="0.01" />
+            <button onclick="addBudget()">Add Budget Item</button>
+        </div>
+        <div id="budgetList"></div>
+    </section>
+
+    <section class="payment" id="payment">
+        <div class="section-header">
+            <span class="section-tag">✦ Payment Hub</span>
+            <h2>Handle Your<br><em>Payments</em></h2>
+            <div class="divider"></div>
+            <p>Process payments securely and track transactions.</p>
+        </div>
+        <div class="payment-grid">
+            <div class="payment-card">
+                <h3>Total Paid</h3>
+                <p class="budget-amount" id="totalPaid">$0.00</p>
+            </div>
+            <div class="payment-card">
+                <h3>Payment History</h3>
+                <ul class="payment-list" id="paymentList"></ul>
+            </div>
+        </div>
+        <div class="payment-form">
+            <input type="number" id="paymentWeddingId" placeholder="Wedding ID" />
+            <input type="number" id="amount" placeholder="Amount" step="0.01" />
+            <select id="type">
+                <option>deposit</option>
+                <option>full payment</option>
+                <option>vendor payment</option>
+            </select>
+            <input type="text" id="method" placeholder="Payment Method" />
+            <button onclick="addPayment()">Process Payment</button>
+        </div>
+    </section>
+
+    <section class="booking" id="booking">
+        <div class="section-header">
+            <span class="section-tag">✦ Begin Your Journey</span>
+            <h2>Start <em>Planning</em> Today</h2>
+            <div class="divider"></div>
+            <p>Submit your details and our planner will reach out within 24 hours.</p>
+        </div>
+        <div class="booking-form">
+            <div id="bookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Partner 1 Name</label>
+                        <input type="text" id="p1" placeholder="Alexandra">
+                    </div>
+                    <div class="form-group">
+                        <label>Partner 2 Name</label>
+                        <input type="text" id="p2" placeholder="James">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Wedding Date</label>
+                        <input type="date" id="wdate">
+                    </div>
+                    <div class="form-group">
+                        <label>Guest Count</label>
+                        <input type="number" id="guests" placeholder="80" min="10">
+                    </div>
+                </div>
+                <div class="form-row form-full">
+                    <div class="form-group">
+                        <label>Package</label>
+                        <select id="pkg">
+                            <option value="">Select Package</option>
+                            <option>Blossom - 3500</option>
+                            <option>Romance - 7200</option>
+                            <option>Grandeur - 14000</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="form-submit" onclick="submitForm()">Reserve My Date</button>
+            </div>
+            <div id="formSuccess">
+                <div class="tick">💍</div>
+                <h3>Booking Confirmed</h3>
+                <p style="color:rgba(255,255,255,.55);margin-top:.8rem;font-size:.88rem;">
+                    Your wedding journey begins. We will be in touch within 24 hours.<br>
+                    <em style="color:#c9a96e;">Booking ID: <span id="bookingId"></span></em>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer-container"></div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Load components
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            });
+
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+    </script>
+</body>
+
+</html>
+
